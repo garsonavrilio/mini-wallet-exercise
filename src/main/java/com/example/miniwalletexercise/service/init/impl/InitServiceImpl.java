@@ -22,7 +22,6 @@ public class InitServiceImpl implements InitService {
   @Autowired
   private InitResponseConverter initResponseConverter;
 
-
   @Override
   public ResponseDTO<InitResponseDTO> init(InitRequestDTO initRequestDTO) {
     if (isNotExist(initRequestDTO)) {
