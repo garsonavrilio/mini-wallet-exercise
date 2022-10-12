@@ -7,6 +7,7 @@ import com.example.miniwalletexercise.dto.init.InitRequestDTO;
 import com.example.miniwalletexercise.dto.init.InitResponseDTO;
 import com.example.miniwalletexercise.repository.wallet.WalletRepository;
 import com.example.miniwalletexercise.service.init.InitService;
+import com.example.miniwalletexercise.service.init.InitServiceErrors;
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class InitServiceImpl implements InitService {
       return initResponseConverter.toResponse(
           walletRepository.save(initRequestConverter.toEntity(initRequestDTO)));
     }
-    throw new RuntimeException("Already Exist");
+    throw InitServiceErrors.alreadyExist();
   }
 
   private boolean isNotExist(InitRequestDTO initRequestDTO) {
