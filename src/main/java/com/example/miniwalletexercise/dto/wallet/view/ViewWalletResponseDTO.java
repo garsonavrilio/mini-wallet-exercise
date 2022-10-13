@@ -3,6 +3,7 @@ package com.example.miniwalletexercise.dto.wallet.view;
 import com.example.miniwalletexercise.dto.wallet.WalletResponseBaseDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.ZonedDateTime;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,4 +15,7 @@ public class ViewWalletResponseDTO extends WalletResponseBaseDTO {
 
   @JsonProperty("enabled_at")
   private ZonedDateTime enabledAt;
+  @JsonProperty("owned_by")
+  private UUID ownedBy;
+  private Long balance;
 }

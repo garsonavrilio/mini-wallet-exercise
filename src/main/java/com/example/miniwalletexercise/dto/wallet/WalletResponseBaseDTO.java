@@ -12,9 +12,6 @@ import lombok.NoArgsConstructor;
 public class WalletResponseBaseDTO {
 
   private UUID id;
-  @JsonProperty("owned_by")
-  private UUID ownedBy;
   private String status;
-  private Long balance;
 
 }

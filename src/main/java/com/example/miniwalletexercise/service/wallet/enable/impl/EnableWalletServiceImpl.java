@@ -5,6 +5,7 @@ import static com.example.miniwalletexercise.constant.StatusConstant.ENABLED;
 import com.example.miniwalletexercise.constant.ActivityConstant;
 import com.example.miniwalletexercise.converter.wallet.enable.EnableWalletResponseConverter;
 import com.example.miniwalletexercise.dto.ResponseDTO;
+import com.example.miniwalletexercise.dto.wallet.WalletResponseDTO;
 import com.example.miniwalletexercise.dto.wallet.enable.EnableWalletResponseDTO;
 import com.example.miniwalletexercise.model.Wallet;
 import com.example.miniwalletexercise.repository.wallet.WalletRepository;
@@ -29,7 +30,7 @@ public class EnableWalletServiceImpl implements EnableWalletService {
   private ActivityService activityService;
 
   @Override
-  public ResponseDTO<EnableWalletResponseDTO> enableWallet(String token) {
+  public ResponseDTO<WalletResponseDTO<EnableWalletResponseDTO>> enableWallet(String token) {
     Wallet wallet = walletRepository.save(
         updateWallet(validate(tokenService.getWalletFrom(token))));
     activityService.storeActivity(wallet, ActivityConstant.ENABLED);

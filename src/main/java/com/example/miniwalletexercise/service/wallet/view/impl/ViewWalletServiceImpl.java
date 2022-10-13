@@ -4,6 +4,7 @@ import static com.example.miniwalletexercise.constant.StatusConstant.ENABLED;
 
 import com.example.miniwalletexercise.converter.wallet.view.ViewWalletResponseConverter;
 import com.example.miniwalletexercise.dto.ResponseDTO;
+import com.example.miniwalletexercise.dto.wallet.WalletResponseDTO;
 import com.example.miniwalletexercise.dto.wallet.view.ViewWalletResponseDTO;
 import com.example.miniwalletexercise.model.Wallet;
 import com.example.miniwalletexercise.service.token.TokenService;
@@ -21,7 +22,7 @@ public class ViewWalletServiceImpl implements ViewWalletService {
   private ViewWalletResponseConverter viewWalletResponseConverter;
 
   @Override
-  public ResponseDTO<ViewWalletResponseDTO> view(String token) {
+  public ResponseDTO<WalletResponseDTO<ViewWalletResponseDTO>> view(String token) {
     return viewWalletResponseConverter.toResponse(validate(tokenService.getWalletFrom(token)));
   }
 

@@ -27,5 +27,6 @@ public class Activity {
   private UUID walletUuid;
   private String type;
   private ZonedDateTime time;
-  private Long balance;
+  private Long amount;
+  private UUID referenceId;
 }
