@@ -12,11 +12,15 @@ import org.springframework.stereotype.Component;
 public class InitRequestConverter {
 
   public Wallet toEntity(InitRequestDTO initRequestDTO) {
+    ZonedDateTime now = ZonedDateTime.now();
     return Wallet.builder()
         .token(encode(initRequestDTO.getCustomerXid()))
         .status(DISABLED)
         .ownedBy(initRequestDTO.getCustomerXid())
-        .enabledAt(ZonedDateTime.now()).balance(0L)
+        .createdAt(now)
+        .updatedAt(now)
+        .disabledAt(now)
+        .balance(0L)
         .build();
   }
 
