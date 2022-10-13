@@ -48,11 +48,11 @@ public class ActivityConverter {
   }
 
   private Activity enableWalletActivity(Wallet wallet) {
-    return Activity.builder().time(wallet.getUpdatedAt()).type(ENABLED).walletUuid(wallet.getUuid()).build();
+    return Activity.builder().time(wallet.getUpdatedAt()).type(ENABLED).walletUuid(wallet.getOwnedBy()).build();
   }
 
   private Activity disableWalletActivity(Wallet wallet) {
-    return Activity.builder().time(wallet.getUpdatedAt()).type(DISABLED).walletUuid(wallet.getUuid()).build();
+    return Activity.builder().time(wallet.getUpdatedAt()).type(DISABLED).walletUuid(wallet.getOwnedBy()).build();
   }
 
 }

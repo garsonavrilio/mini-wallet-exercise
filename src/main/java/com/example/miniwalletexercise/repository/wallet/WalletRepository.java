@@ -1,6 +1,7 @@
 package com.example.miniwalletexercise.repository.wallet;
 
 import static com.example.miniwalletexercise.repository.query.WalletQuery.DEPOSIT_QUERY;
+import static com.example.miniwalletexercise.repository.query.WalletQuery.DISABLED_QUERY;
 import static com.example.miniwalletexercise.repository.query.WalletQuery.WITHDRAW_QUERY;
 
 import com.example.miniwalletexercise.model.Wallet;
@@ -16,6 +17,11 @@ import org.springframework.stereotype.Repository;
 public interface WalletRepository extends JpaRepository<Wallet, Long> {
 
   Wallet findWalletByOwnedBy(UUID uuid);
+
+  @Transactional
+  @Modifying
+  @Query(value = DISABLED_QUERY, nativeQuery = true)
+  void disable(UUID uuid, ZonedDateTime time);
 
   @Transactional
   @Modifying

@@ -9,11 +9,14 @@ import com.example.miniwalletexercise.dto.ResponseDTO;
 import com.example.miniwalletexercise.dto.wallet.WalletResponseDTO;
 import com.example.miniwalletexercise.dto.wallet.deposit.DepositResponseDTO;
 import com.example.miniwalletexercise.dto.wallet.deposit.DepositWalletRequestDTO;
+import com.example.miniwalletexercise.dto.wallet.disable.DisableWalletRequestDTO;
+import com.example.miniwalletexercise.dto.wallet.disable.DisableWalletResponseDTO;
 import com.example.miniwalletexercise.dto.wallet.enable.EnableWalletResponseDTO;
 import com.example.miniwalletexercise.dto.wallet.view.ViewWalletResponseDTO;
 import com.example.miniwalletexercise.dto.wallet.withdrawal.WithdrawalResponseDTO;
 import com.example.miniwalletexercise.dto.wallet.withdrawal.WithdrawalWalletRequestDTO;
 import com.example.miniwalletexercise.service.wallet.deposit.DepositWalletService;
+import com.example.miniwalletexercise.service.wallet.disable.DisableWalletService;
 import com.example.miniwalletexercise.service.wallet.enable.EnableWalletService;
 import com.example.miniwalletexercise.service.wallet.view.ViewWalletService;
 import com.example.miniwalletexercise.service.wallet.withdrawal.WithdrawalWalletService;
@@ -21,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -35,9 +39,16 @@ public class WalletController {
   private ViewWalletService viewWalletService;
   @Autowired
   private DepositWalletService depositWalletService;
-
   @Autowired
   private WithdrawalWalletService withdrawalWalletService;
+  @Autowired
+  private DisableWalletService disableWalletService;
+
+  @GetMapping(WALLET)
+  public ResponseEntity<ResponseDTO<WalletResponseDTO<ViewWalletResponseDTO>>> viewWallet(
+      @RequestHeader(value = AUTHORIZATION) String token) {
+    return new ResponseEntity<>(viewWalletService.view(token), HttpStatus.OK);
+  }
 
   @PostMapping(WALLET)
   public ResponseEntity<ResponseDTO<WalletResponseDTO<EnableWalletResponseDTO>>> enableWallet(
@@ -45,10 +56,12 @@ public class WalletController {
     return new ResponseEntity<>(enableWalletService.enableWallet(token), HttpStatus.CREATED);
   }
 
-  @GetMapping(WALLET)
-  public ResponseEntity<ResponseDTO<WalletResponseDTO<ViewWalletResponseDTO>>> viewWallet(
-      @RequestHeader(value = AUTHORIZATION) String token) {
-    return new ResponseEntity<>(viewWalletService.view(token), HttpStatus.OK);
+  @PatchMapping(WALLET)
+  public ResponseEntity<ResponseDTO<WalletResponseDTO<DisableWalletResponseDTO>>> disableWallet(
+      @RequestHeader(value = AUTHORIZATION) String token,
+      @RequestBody DisableWalletRequestDTO disableWalletRequestDTO) {
+    return new ResponseEntity<>(disableWalletService.disableWallet(token, disableWalletRequestDTO),
+        HttpStatus.OK);
   }
 
   @PostMapping(DEPOSITS)

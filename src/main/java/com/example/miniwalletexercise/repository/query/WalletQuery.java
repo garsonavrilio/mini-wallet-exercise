@@ -16,4 +16,12 @@ public class WalletQuery {
           + "updated_at = :time "
           + "WHERE owned_by = :uuid";
 
+  public static final String DISABLED_QUERY =
+      "UPDATE wallets "
+          + "SET "
+          + "status = 'disabled', "
+          + "disabled_at = :time, "
+          + "updated_at = :time "
+          + "WHERE owned_by = :uuid";
+
 }
