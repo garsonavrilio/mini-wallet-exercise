@@ -41,6 +41,6 @@ public class DepositWalletServiceImpl implements DepositWalletService {
     walletValidationUtil.validateReferenceIdAndType(depositWalletRequestDTO.getReferenceId(), DEPOSIT);
     walletRepository.deposit(depositWalletRequestDTO.getAmount(), now, wallet.getOwnedBy());
     activityService.storeActivity(wallet, depositWalletRequestDTO, now);
-    return depositWalletResponseConverter.toResponse(wallet, depositWalletRequestDTO);
+    return depositWalletResponseConverter.toResponse(wallet, depositWalletRequestDTO, now);
   }
 }

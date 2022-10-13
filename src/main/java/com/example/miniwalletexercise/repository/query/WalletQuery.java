@@ -9,4 +9,11 @@ public class WalletQuery {
           + "updated_at = :time "
           + "WHERE owned_by = :uuid";
 
+  public static final String WITHDRAW_QUERY =
+      "UPDATE wallets "
+          + "SET "
+          + "balance = balance - :amount, "
+          + "updated_at = :time "
+          + "WHERE owned_by = :uuid";
+
 }

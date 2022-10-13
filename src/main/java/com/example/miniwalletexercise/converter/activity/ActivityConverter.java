@@ -3,8 +3,10 @@ package com.example.miniwalletexercise.converter.activity;
 import static com.example.miniwalletexercise.constant.ActivityConstant.DEPOSIT;
 import static com.example.miniwalletexercise.constant.ActivityConstant.DISABLED;
 import static com.example.miniwalletexercise.constant.ActivityConstant.ENABLED;
+import static com.example.miniwalletexercise.constant.ActivityConstant.WITHDRAW;
 
 import com.example.miniwalletexercise.dto.wallet.deposit.DepositWalletRequestDTO;
+import com.example.miniwalletexercise.dto.wallet.withdrawal.WithdrawalWalletRequestDTO;
 import com.example.miniwalletexercise.model.Activity;
 import com.example.miniwalletexercise.model.Wallet;
 import com.example.miniwalletexercise.service.activity.ActivityServiceErrors;
@@ -32,6 +34,16 @@ public class ActivityConverter {
         .walletUuid(wallet.getUuid())
         .type(DEPOSIT)
         .referenceId(depositWalletRequestDTO.getReferenceId())
+        .build();
+  }
+
+  public Activity toEntity(Wallet wallet, WithdrawalWalletRequestDTO withdrawalWalletRequestDTO, ZonedDateTime now) {
+    return Activity.builder()
+        .time(now)
+        .amount(withdrawalWalletRequestDTO.getAmount())
+        .walletUuid(wallet.getUuid())
+        .type(WITHDRAW)
+        .referenceId(withdrawalWalletRequestDTO.getReferenceId())
         .build();
   }
 

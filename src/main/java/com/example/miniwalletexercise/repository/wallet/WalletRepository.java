@@ -1,6 +1,7 @@
 package com.example.miniwalletexercise.repository.wallet;
 
 import static com.example.miniwalletexercise.repository.query.WalletQuery.DEPOSIT_QUERY;
+import static com.example.miniwalletexercise.repository.query.WalletQuery.WITHDRAW_QUERY;
 
 import com.example.miniwalletexercise.model.Wallet;
 import java.time.ZonedDateTime;
@@ -20,4 +21,9 @@ public interface WalletRepository extends JpaRepository<Wallet, Long> {
   @Modifying
   @Query(value = DEPOSIT_QUERY, nativeQuery = true)
   void deposit(Long amount, ZonedDateTime time, UUID uuid);
+
+  @Transactional
+  @Modifying
+  @Query(value = WITHDRAW_QUERY, nativeQuery = true)
+  void withdraw(Long amount, ZonedDateTime time, UUID uuid);
 }

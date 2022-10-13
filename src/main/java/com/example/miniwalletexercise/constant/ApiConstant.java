@@ -6,4 +6,5 @@ public class ApiConstant {
   public static final String INIT = API_V1 + "/init";
   public static final String WALLET = API_V1 + "/wallet";
   public static final String DEPOSITS = WALLET + "/deposits";
+  public static final String WITHDRAWALS = WALLET + "/withdrawals";
 }

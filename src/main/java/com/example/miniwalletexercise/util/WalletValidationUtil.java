@@ -2,6 +2,7 @@ package com.example.miniwalletexercise.util;
 
 import static com.example.miniwalletexercise.constant.StatusConstant.ENABLED;
 
+import com.example.miniwalletexercise.dto.wallet.withdrawal.WithdrawalWalletRequestDTO;
 import com.example.miniwalletexercise.exception.ServiceException;
 import com.example.miniwalletexercise.model.Wallet;
 import com.example.miniwalletexercise.repository.activity.ActivityRepository;
@@ -31,6 +32,12 @@ public class WalletValidationUtil {
     }
   }
 
+  public static void isEnableWithdraw(Wallet wallet, WithdrawalWalletRequestDTO withdrawalWalletRequestDTO){
+    if(wallet.getBalance() - withdrawalWalletRequestDTO.getAmount() < 0){
+      throw invalidAmount();
+    }
+  }
+
   private static ServiceException errorWalletEnable() {
     Map<String, String> errors = new HashMap<>();
     errors.put("Wallet", "status is disabled");
@@ -40,6 +47,12 @@ public class WalletValidationUtil {
   private static ServiceException errorReferenceId() {
     Map<String, String> errors = new HashMap<>();
     errors.put("Reference_id", "must be unique");
+    return new ServiceException(errors);
+  }
+
+  private static ServiceException invalidAmount() {
+    Map<String, String> errors = new HashMap<>();
+    errors.put("Amount", "is invalid, cannot exceed your balance");
     return new ServiceException(errors);
   }
 }
