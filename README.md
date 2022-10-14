@@ -16,36 +16,23 @@ After the installation, you need to run on your local:
 #Example Request
 1. You need to create the wallet first
 `curl --location --request POST 'http://localhost:8080/api/v1/init' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "customer_xid": "92ea76d2-4a4b-11ed-b878-0242ac120002"
-}'`
+--form 'customer_xid="92ea76d2-4a4b-11ed-b878-0242ac120002"'`
 2. After the creation of your wallet success you need to enable the wallet to use all the feature in this service
-`curl --location --request POST 'http://localhost:8080/api/v1/wallet' \
---header 'Authorization: Token dfdd2db54cc0ba4b6d1e7e164a6fd0d90d2e0bca73c9cacd7d7c16df8a254f02'`
+``
 3. To view your wallet balance you can use this curl
 `curl --location --request GET 'http://localhost:8080/api/v1/wallet' \
 --header 'Authorization: Token dfdd2db54cc0ba4b6d1e7e164a6fd0d90d2e0bca73c9cacd7d7c16df8a254f02'`
 4. For Deposit to your wallet with certain amount you can use this curl
 `curl --location --request POST 'http://localhost:8080/api/v1/wallet/deposits' \
 --header 'Authorization: Token dfdd2db54cc0ba4b6d1e7e164a6fd0d90d2e0bca73c9cacd7d7c16df8a254f02' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "amount": 100,
-    "reference_id": "a8567184-4adb-11ed-b878-0242ac120001"
-}'`
+--form 'amount="100"' \
+--form 'reference_id="a8567184-4adb-11ed-b878-0242ac120002"'`
 5. To Withdraw your amount you can use this curl
 `curl --location --request POST 'http://localhost:8080/api/v1/wallet/withdrawals' \
 --header 'Authorization: Token dfdd2db54cc0ba4b6d1e7e164a6fd0d90d2e0bca73c9cacd7d7c16df8a254f02' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "amount": 100,
-    "reference_id": "a8567184-4adb-11ed-b878-0242ac120001"
-}'`
+--form 'amount="50"' \
+--form 'reference_id="a8567184-4adb-11ed-b878-0242ac120005"'`
 6. This curl is to Disabled your wallet so the feature would be locked until you enabled it again
 `curl --location --request PATCH 'http://localhost:8080/api/v1/wallet' \
---header 'Authorization: Token OTJlYTc2ZDItNGE0Yi0xMWVkLWI4NzgtMDI0MmFjMTIwMDAy' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "is_disabled": true
-}'`
+--header 'Authorization: Token dfdd2db54cc0ba4b6d1e7e164a6fd0d90d2e0bca73c9cacd7d7c16df8a254f02' \
+--form 'is_disabled="true"'`
