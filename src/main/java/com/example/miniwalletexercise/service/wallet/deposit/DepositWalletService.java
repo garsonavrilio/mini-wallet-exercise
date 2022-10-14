@@ -2,11 +2,10 @@ package com.example.miniwalletexercise.service.wallet.deposit;
 
 import com.example.miniwalletexercise.dto.ResponseDTO;
 import com.example.miniwalletexercise.dto.wallet.deposit.DepositResponseDTO;
-import com.example.miniwalletexercise.dto.wallet.deposit.DepositWalletRequestDTO;
+import java.util.UUID;
 
 public interface DepositWalletService {
 
-  ResponseDTO<DepositResponseDTO> deposit(String token,
-      DepositWalletRequestDTO depositWalletRequestDTO);
+  ResponseDTO<DepositResponseDTO> deposit(String token, Long amount, UUID referenceId);
 
 }

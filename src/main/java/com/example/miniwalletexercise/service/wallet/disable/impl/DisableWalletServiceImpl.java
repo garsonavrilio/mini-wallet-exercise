@@ -1,13 +1,11 @@
 package com.example.miniwalletexercise.service.wallet.disable.impl;
 
 import static com.example.miniwalletexercise.constant.StatusConstant.DISABLED;
-import static com.example.miniwalletexercise.constant.StatusConstant.ENABLED;
 
 import com.example.miniwalletexercise.constant.ActivityConstant;
 import com.example.miniwalletexercise.converter.wallet.disable.DisableWalletResponseConverter;
 import com.example.miniwalletexercise.dto.ResponseDTO;
 import com.example.miniwalletexercise.dto.wallet.WalletResponseDTO;
-import com.example.miniwalletexercise.dto.wallet.disable.DisableWalletRequestDTO;
 import com.example.miniwalletexercise.dto.wallet.disable.DisableWalletResponseDTO;
 import com.example.miniwalletexercise.model.Wallet;
 import com.example.miniwalletexercise.repository.wallet.WalletRepository;
@@ -15,7 +13,6 @@ import com.example.miniwalletexercise.service.activity.ActivityService;
 import com.example.miniwalletexercise.service.token.TokenService;
 import com.example.miniwalletexercise.service.wallet.disable.DisableWalletService;
 import com.example.miniwalletexercise.service.wallet.disable.DisableWalletServiceErrors;
-import com.example.miniwalletexercise.service.wallet.enable.EnableWalletServiceErrors;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +32,8 @@ public class DisableWalletServiceImpl implements DisableWalletService {
 
   @Override
   public ResponseDTO<WalletResponseDTO<DisableWalletResponseDTO>> disableWallet(String token,
-      DisableWalletRequestDTO disableWalletRequestDTO) {
-    validate(disableWalletRequestDTO);
+      Boolean isDisabled) {
+    validateRequest(isDisabled);
     Wallet wallet = validate(tokenService.getWalletFrom(token));
     ZonedDateTime now = ZonedDateTime.now();
     walletRepository.disable(wallet.getOwnedBy(), now);
@@ -50,8 +47,9 @@ public class DisableWalletServiceImpl implements DisableWalletService {
     }
     return wallet;
   }
-  private void validate(DisableWalletRequestDTO disableWalletRequestDTO){
-    if(Objects.isNull(disableWalletRequestDTO.getIsDisabled()) || !disableWalletRequestDTO.getIsDisabled()){
+
+  private void validateRequest(Boolean isDisabled) {
+    if (Objects.isNull(isDisabled) || !isDisabled) {
       throw DisableWalletServiceErrors.invalidRequest();
     }
   }

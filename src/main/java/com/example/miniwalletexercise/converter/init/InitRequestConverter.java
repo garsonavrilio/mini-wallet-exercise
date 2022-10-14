@@ -3,20 +3,20 @@ package com.example.miniwalletexercise.converter.init;
 import static com.example.miniwalletexercise.constant.StatusConstant.DISABLED;
 import static com.example.miniwalletexercise.util.HashingUtil.hash;
 
-import com.example.miniwalletexercise.dto.init.InitRequestDTO;
 import com.example.miniwalletexercise.model.Wallet;
 import java.time.ZonedDateTime;
+import java.util.UUID;
 import org.springframework.stereotype.Component;
 
 @Component
 public class InitRequestConverter {
 
-  public Wallet toEntity(InitRequestDTO initRequestDTO) {
+  public Wallet toEntity(UUID customerXid) {
     ZonedDateTime now = ZonedDateTime.now();
     return Wallet.builder()
-        .token(hash(initRequestDTO.getCustomerXid()))
+        .token(hash(customerXid))
         .status(DISABLED)
-        .ownedBy(initRequestDTO.getCustomerXid())
+        .ownedBy(customerXid)
         .createdAt(now)
         .updatedAt(now)
         .disabledAt(now)
