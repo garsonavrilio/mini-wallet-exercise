@@ -18,6 +18,8 @@ public interface WalletRepository extends JpaRepository<Wallet, Long> {
 
   Wallet findWalletByOwnedBy(UUID uuid);
 
+  Wallet findWalletByToken(String token);
+
   @Transactional
   @Modifying
   @Query(value = DISABLED_QUERY, nativeQuery = true)

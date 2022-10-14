@@ -1,7 +1,6 @@
 package com.example.miniwalletexercise.service.token.impl;
 
 import static com.example.miniwalletexercise.constant.ServiceConstant.PREFIX_TOKEN;
-import static com.example.miniwalletexercise.util.Base64Util.decode;
 
 import com.example.miniwalletexercise.model.Wallet;
 import com.example.miniwalletexercise.repository.wallet.WalletRepository;
@@ -17,7 +16,7 @@ public class TokenServiceImpl implements TokenService {
 
   @Override
   public Wallet getWalletFrom(String token) {
-    return walletRepository.findWalletByOwnedBy(decode(sanitizeToken(token)));
+    return walletRepository.findWalletByToken(sanitizeToken(token));
   }
 
   @Override

@@ -1,7 +1,6 @@
 package com.example.miniwalletexercise.service.auth.impl;
 
 import static com.example.miniwalletexercise.constant.ServiceConstant.PREFIX_TOKEN;
-import static com.example.miniwalletexercise.util.Base64Util.decode;
 
 import com.example.miniwalletexercise.repository.wallet.WalletRepository;
 import com.example.miniwalletexercise.service.auth.AuthService;
@@ -23,8 +22,7 @@ public class AuthServiceImpl implements AuthService {
     if (isInvalid(token)) {
       return false;
     }
-    return Objects.nonNull(
-        walletRepository.findWalletByOwnedBy(decode(tokenService.sanitizeToken(token))));
+    return Objects.nonNull(walletRepository.findWalletByToken(tokenService.sanitizeToken(token)));
   }
 
   private boolean isInvalid(String token) {
